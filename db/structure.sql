@@ -51,20 +51,6 @@ COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs
 
 
 --
--- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
-
-
---
--- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
-
-
---
 -- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -1237,9 +1223,8 @@ CREATE TABLE public.users (
     team_id integer,
     access_token character varying,
     refresh_token character varying,
-    logged_in_at timestamp without time zone DEFAULT '2017-03-02 19:56:21.793001'::timestamp without time zone NOT NULL,
-    ip_address inet,
-    admin boolean DEFAULT false
+    logged_in_at timestamp without time zone DEFAULT '2018-09-08 06:44:09.758282'::timestamp without time zone NOT NULL,
+    ip_address inet
 );
 
 
@@ -1789,6 +1774,14 @@ ALTER TABLE ONLY public.posts
 
 
 --
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
 -- Name: target_investors target_investors_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2318,7 +2311,7 @@ CREATE INDEX index_investor_entities_on_competitor_id ON public.investor_entitie
 -- Name: index_investor_entities_on_count; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_investor_entities_on_count ON public.investor_entities USING btree (count);
+CREATE INDEX index_investor_entities_on_count ON public.investor_entities USING btree (count DESC);
 
 
 --
@@ -2381,7 +2374,7 @@ CREATE UNIQUE INDEX index_investors_on_facebook ON public.investors USING btree 
 -- Name: index_investors_on_featured; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_investors_on_featured ON public.investors USING btree (featured);
+CREATE INDEX index_investors_on_featured ON public.investors USING btree (featured DESC);
 
 
 --
@@ -2458,7 +2451,7 @@ CREATE INDEX index_investors_on_university_id ON public.investors USING btree (u
 -- Name: index_investors_on_verified; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_investors_on_verified ON public.investors USING btree (verified);
+CREATE INDEX index_investors_on_verified ON public.investors USING btree (verified DESC);
 
 
 --
@@ -2480,6 +2473,13 @@ CREATE UNIQUE INDEX index_knowledges_on_ts ON public.knowledges USING btree (ts)
 --
 
 CREATE INDEX index_knowledges_on_user_id ON public.knowledges USING btree (user_id);
+
+
+--
+-- Name: index_lists_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_lists_on_name ON public.lists USING btree (name);
 
 
 --
@@ -2788,13 +2788,6 @@ CREATE INDEX investors_to_tsvector_lname ON public.investors USING gin (to_tsvec
 --
 
 CREATE INDEX trgm_name_indx_on_entities ON public.entities USING gist (name public.gist_trgm_ops);
-
-
---
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING btree (version);
 
 
 --
@@ -3249,7 +3242,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171023230210'),
 ('20171030065046'),
 ('20171030181615'),
-('20171107012911'),
 ('20171107111143'),
 ('20171108005014'),
 ('20171110185838'),
@@ -3298,7 +3290,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180202175706'),
 ('20180203050854'),
 ('20180404032450'),
-('20180624224942'),
 ('20180921073712');
 
 
