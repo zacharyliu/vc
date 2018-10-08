@@ -1224,7 +1224,8 @@ CREATE TABLE public.users (
     access_token character varying,
     refresh_token character varying,
     logged_in_at timestamp without time zone DEFAULT '2018-09-08 06:44:09.758282'::timestamp without time zone NOT NULL,
-    ip_address inet
+    ip_address inet,
+    school character varying
 );
 
 
@@ -3290,6 +3291,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180202175706'),
 ('20180203050854'),
 ('20180404032450'),
-('20180921073712');
+('20180921073712'),
+('20181008051440');
 
 

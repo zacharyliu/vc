@@ -31,6 +31,7 @@ class Company < ActiveRecord::Base
     funding: 3,
     portfolio: 4,
     passed: 5,
+    deferred: 6,
   }
   enum stage: STAGES
 
