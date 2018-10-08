@@ -88,6 +88,7 @@ gem 'scenic'
 gem 'grpc', '1.11.0' # tmp fix for grpc#13908
 gem 'mixpanel-ruby'
 gem 'jsonapi-resources'
+gem 'rack-cors', require: 'rack/cors'
 
 group :test do
   gem 'minitest', '~> 5.11.2'
