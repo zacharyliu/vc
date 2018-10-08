@@ -1,7 +1,11 @@
 class Internal::Api::V2::PartnerResource < JSONAPI::Resource
-  attribute :username
   model_name 'User'
 
+  attribute :name
+  attribute :email
+  attribute :school
+
+  has_one :team
   has_many :companies
   has_many :votes
 
